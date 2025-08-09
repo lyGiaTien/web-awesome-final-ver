@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elektrik Eel Festival</title>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    /* Side Menu (hidden by default) */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -250px; /* Hide it offscreen initially */
+  width: 250px;
+  height: 100%;
+  background-color: #222;
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 20px;
+  transition: right 0.3s ease;
+  z-index: 999;
+}
+
+.side-menu a {
+  color: white;
+  padding: 10px 0;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.side-menu a:hover {
+  background-color: #444;
+  width: 100%;
+  padding-left: 10px;
+}
+
+.side-menu.open {
+  right: 0; /* Slide in when open */
+}
+
+    body {
+      margin: 0;
+      font-family: 'Special Elite', serif;
+      background: black;
+      color: white;
+      line-height: 1.6; /* Improve readability */
+    }
+
+    /* --- Navigation Bar --- */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.topnav .logo {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.topnav a.icon {
+  display: block;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* Mobile Dropdown Menu */
+
+#myLinks {
+  flex-direction: column;
+  background-color: #444;
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+} */
+
+/* #myLinks.open {
+  display: flex;
+}
+
+#myLinks a {
+  display: block;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid #555;
+} 
+
+#myLinks a:hover {
+  background-color: #ddd;
+  color: black;
+} */
+
+
+    /* --- Hero Section --- */
+    .hero-section {
+      z-index: 0;
+      /* background: url('./images/bg-img.jpg') no-repeat center center/cover; */
+      width: 100%;
+      height: 600px; /* Adjust height as needed */
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center; /* Center content vertically and horizontally */
+      text-align: center;
+      padding: 20px; /* Add some padding around the content */
+    }
+
+    .hero-content {
+      position: relative; /* Allows precise positioning of child elements */
+      width: 100%;
+      max-width: 900px; /* Constrain content width */
+      height: 100%; /* Take full height of hero-section */
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Vertically center within hero-content */
+      align-items: center; /* Horizontally center within hero-content */
+      z-index: 2; /* Ensure content is above the background */
+    }
+
+    .hero-content h1,
+    .hero-content h2 {
+      margin: 0;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Add text shadow for readability */
+    }
+
+    .hero-content h1 {
+      font-size: 5em; /* Adjust size */
+    }
+
+    .hero-content h2 {
+      font-size: 3em; /* Adjust size */
+      margin-bottom: 30px; /* Space below festival title */
+    }
+
+    .artist-names {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Two columns for artists */
+      gap: 15px 50px; /* Vertical and horizontal gap */
+      color: white;
+      font-size: 1.5em; /* Adjust size */
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    }
+
+    .artist-names p {
+      margin: 0;
+      white-space: nowrap; /* Prevent names from wrapping */
+    }
+
+    /* Specific positioning for names, more artistic than structured grid within hero */
+    .artist-name.surgeon { position: absolute; left: 10%; top: 20%; }
+    .artist-name.richie { position: absolute; right: 10%; top: 25%; }
+    .artist-name.oscar { position: absolute; right: 10%; top: 50%; }
+    .artist-name.robert { position: absolute; left: 10%; top: 60%; }
+    .artist-name.robag { position: absolute; right: 10%; top: 65%; }
+
+
+    /* For more robust hero artist placement, you'd use a grid inside hero-content */
+    /* or a more complex absolute positioning setup based on percentages. */
+    /* The current target image suggests these are somewhat free-floating. */
+
+    /* --- "GET READY FOR..." Section --- */
+    .info-section {
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 1px solid white; /* Top border */
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+
+    /* --- Ticket & Location Grid --- */
+    .ticket-info-grid {
+      display: grid;
+      /* Define 3 columns for desktop. You might adjust these widths */
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0; /* No gaps, borders will create separation */
+      background: black;
+      color: white;
+      width: 100%;
+      margin: 0; /* Ensure no external margins */
+    }
+
+    .ticket-buy-block {
+      grid-column: 1 / span 2; /* Spans the first two columns in the first row */
+      grid-row: 1;
+      text-align: center;
+      padding: 30px 20px; /* Increased padding */
+      border-bottom: 1px solid white;
+      border-right: 1px solid white; /* Separates it from Brisbane */
+      display: flex; /* Use flex to center content within */
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ticket-buy-block h2 {
+      font-size: 2em;
+      margin-bottom: 5px;
+    }
+
+    .ticket-buy-block h3 {
+      font-size: 2.5em;
+      color: #04AA6D; /* Highlight color for price */
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+    .ticket-buy-block p {
+      font-size: 1.2em;
+      margin: 0;
+    }
+
+
+    .location-block {
+      padding: 30px 20px; /* Increased padding */
+      text-align: left;
+      border-bottom: 1px solid white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .location-block p {
+      margin: 0;
+      font-size: 1.1em;
+    }
+
+    /* Specific grid placement and borders for locations to match image */
+    .ticket-info-grid > div:nth-child(2) { /* Brisbane */
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .ticket-info-grid > div:nth-child(3) { /* Sydney */
+      grid-column: 1;
+      grid-row: 2;
+      border-right: 1px solid white; /* Separates Sydney from Melbourne */
+    }
+
+    .ticket-info-grid > div:nth-child(4) { /* Melbourne */
+      grid-column: 2 / span 2; /* Spans the remaining two columns of the second row */
+      grid-row: 2;
+    }
+
+    /* --- Artist Images Grid --- */
+    .artist-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 columns for desktop */
+      gap: 0;
+      background: black;
+      color: white;
+      width: 100%;
+      margin: 0;
+      border-top: 1px solid white; /* Top border for the whole grid */
+    }
+
+    .artist-item {
+      padding: 15px; /* Space inside each item */
+      text-align: center;
+      border-bottom: 1px solid white; /* All items get a bottom border */
+      border-right: 1px solid white; /* All items get a right border */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* Push image and text to ends */
+      align-items: center;
+    }
+
+    .artist-item img {
+      width: 100%; /* Make images fill their container */
+      height: 250px; /* Fixed height for uniformity, adjust as needed */
+      object-fit: cover; /* Ensure images cover the area without distortion */
+      display: block;
+      margin-bottom: 10px; /* Space between image and name */
+    }
+
+    .artist-item p {
+      margin: 0; /* Remove default paragraph margin */
+      font-size: 1.1em;
+    }
+
+    .artist-item .placeholder-text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%; /* Fill the artist-item height */
+      font-size: 1.8em; /* Adjust size */
+      font-weight: bold;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Remove right border from last item in each row */
+    .artist-grid .artist-item:nth-child(3n) {
+      border-right: none;
+    }
+
+    /* Remove bottom border from items in the last row */
+    /* This rule needs to be dynamic based on the number of items and columns.
+       For 6 items, items 4, 5, 6 are last row. */
+    .artist-grid .artist-item:nth-child(n+4) { /* Items 4, 5, 6 will be in the second row */
+      border-bottom: none;
+    }
+
+
+    /* --- Genres Grid --- */
+    .genres-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid for genres */
+      gap: 0;
+      background: black;
+      color: white;
+      margin: 0; /* No external margins */
+      border-top: 1px solid white; /* Top border for the whole grid */
+    }
+
+    .genre-item {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid white;
+      border-right: 1px solid white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .genre-item img {
+      width: 100%;
+      height: 200px; /* Fixed height for uniformity */
+      object-fit: cover;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .genre-item p {
+      margin: 0;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+
+    /* Remove right border from last item in its row (dynamic with auto-fit) */
+    /* This is tricky with auto-fit. A common approach is to remove it from all, then add to others. */
+    .genres-grid .genre-item {
+      border-right: 1px solid white; /* Default right border */
+    }
+    .genres-grid .genre-item:nth-child(2n) { /* For 2 columns, remove from 2nd, 4th etc. */
+      /* This is a simple example, a more robust solution would check if it's the last in its row */
+    }
+    /* Let's try to remove only from the very last child to simplify for now,
+       or the last in each row using a media query approach */
+    .genres-grid .genre-item:last-child {
+      border-right: none;
+    }
+
+
+    /* --- Sign Up Section --- */
+    .signup-section {
+      background: #1e74d3;
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 1px solid white; /* Top border */
+    }
+
+    .signup-section h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .signup-form {
+      display: flex;
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+      justify-content: center;
+      gap: 15px; /* Space between inputs */
+      margin-bottom: 20px;
+    }
+
+    .signup-form input {
+      padding: 12px 15px;
+      border: none;
+      border-radius: 5px;
+      width: 200px; /* Fixed width for inputs */
+      font-size: 1em;
+    }
+
+    .signup-section button {
+      padding: 12px 25px;
+      font-weight: bold;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: background-color 0.3s ease;
+    }
+
+    .signup-section button:hover {
+      background-color: #333;
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: #000;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      border-top: 1px solid white; /* Top border for footer */
+    }
+
+    footer img {
+      height: 25px; /* Slightly larger icons */
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    footer img:hover {
+      opacity: 1;
+    }
+
+    /* --- Media Queries for Responsiveness --- */
+
+    /* Mobile First: Adjust for smaller screens first, then progressively enhance */
+
+    /* Adjust for screens smaller than 768px (e.g., tablets, larger phones) */
+    @media (max-width: 768px) {
+      .topnav-links {
+        display: none; /* Hide desktop links */
+      }
+      .dropdown-menu {
+  pointer-events: auto; 
+}
+
+      .hero-content h1 {
+        font-size: 3.5em;
+      }
+      .hero-content h2 {
+        font-size: 2em;
+      }
+      .artist-names {
+        font-size: 1.2em;
+      }
+
+      /* Adjust the artist names positioning for smaller screens */
+      .artist-name.surgeon,
+      .artist-name.richie,
+      .artist-name.oscar,
+      .artist-name.robert,
+      .artist-name.robag {
+        position: static; /* Remove absolute positioning */
+        text-align: center;
+        margin: 5px 0; /* Add some space */
+      }
+      .artist-names {
+        display: block; /* Stack them */
+      }
+      .ticket-info-grid {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+      }
+      .ticket-buy-block,
+      .location-block {
+        grid-column: auto !important; /* Reset column span */
+        grid-row: auto !important; /* Reset row span */
+        border-right: none !important; /* Remove right borders */
+        border-bottom: 1px solid white; /* Keep bottom border for stacking */
+        text-align: center; /* Center content on mobile */
+      }
+      .ticket-buy-block {
+        order: 0; /* Ensure buy block stays at top */
+      }
+      .location-block:last-of-type {
+        border-bottom: none; /* No bottom border for the very last item */
+      }
+
+
+      .artist-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
+      }
+      .artist-item {
+        border-right: 1px solid white; /* All items get right border by default */
+        border-bottom: 1px solid white; /* All items get bottom border by default */
+      }
+      .artist-grid .artist-item:nth-child(2n) { /* Remove right border from 2nd, 4th, etc. */
+        border-right: none;
+      }
+      .artist-grid .artist-item:nth-last-child(-n + 2) { /* Remove bottom border from last 2 items */
+        border-bottom: none;
+      }
+      /* Ensure placeholder text fills its space on smaller screens */
+      .artist-item .placeholder-text {
+        height: auto;
+      }
+
+
+      .genres-grid {
+        grid-template-columns: 1fr; /* Single column on smaller tablets/phones */
+      }
+      .genre-item {
+        border-right: none; /* No right border on single column */
+        border-bottom: 1px solid white;
+      }
+      .genres-grid .genre-item:last-child {
+        border-bottom: none; /* No bottom border for the very last item */
+      }
+
+      .signup-form input {
+        width: 100%; /* Inputs take full width */
+      }
+    }
+
+    /* Adjust for even smaller screens (e.g., mobile phones) */
+    @media (max-width: 480px) {
+      .hero-section {
+        height: 450px; /* Shorter hero on small screens */
+      }
+      .hero-content h1 {
+        font-size: 2.5em;
+      }
+      .hero-content h2 {
+        font-size: 1.5em;
+      }
+      .artist-names {
+        font-size: 1em;
+      }
+
+      .info-section {
+        font-size: 1em;
+        padding: 20px 10px;
+      }
+
+      .ticket-buy-block,
+      .location-block {
+        padding: 20px 15px;
+      }
+      .ticket-buy-block h2 {
+        font-size: 1.5em;
+      }
+      .ticket-buy-block h3 {
+        font-size: 2em;
+      }
+
+
+      .artist-grid {
+        grid-template-columns: 1fr; /* Single column on mobile phones */
+      }
+      .artist-item {
+        border-right: none !important; /* Ensure no right border on single column */
+        border-bottom: 1px solid white;
+      }
+      .artist-grid .artist-item:last-child {
+        border-bottom: none;
+      }
+
+      .genres-grid {
+        grid-template-columns: 1fr; /* Still single column */
+      }
+      .genre-item {
+        border-right: none;
+      }
+      .genres-grid .genre-item:last-child {
+        border-bottom: none;
+      }
+    }
+.topnav a.icon {
+  display: block;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+
+.dropdown-menu {
+  flex-direction: column;
+  background-color: #444;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.6);
+  z-index: 1000;
+  width: 200px;
+}
+
+.dropdown-menu a {
+  padding: 12px 16px;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid #555;
+}
+
+.dropdown-menu a:hover {
+  background-color: #555;
+}
+
+.dropdown-menu a:last-child {
+  border-bottom: none;
+}
+.dropdown-menu.open {
+  display: flex;
+}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="topnav">
+    <a class="logo">Elektrik Eel</a>
+    <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+      <i class="fa fa-bars"></i>
+    </a>
+    <div id="myLinks" class="dropdown-menu">
+      <a href="#about">ABOUT</a>
+      <a href="#tickets">BUY TICKETS</a>
+      <a href="#contact">CONTACT</a>
+      <a href="#">SHOP OUR MERCH</a>
+    </div>
+  </div>
+</nav>
+
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Elektrik Eel </h1>
+      <h2>Festival </h2>
+      <p class="artist-name surgeon">Surgeon </p>
+      <p class="artist-name richie">Richie Hawtin </p>
+      <p class="artist-name oscar">Oscar Mulero </p>
+      <p class="artist-name robert">Robert Hood</p>
+      <p class="artist-name robag">Robag Wruhme </p>
+    </div>
+  </section>
+
+  <section class="info-section">
+    <p><em>GET READY FOR 3 NIGHTS OF PREMIERE ARTISTRY AND HYPNOTIC CRAFTSMANSHIP</em></p>
+  </section>
+
+  <section class="ticket-info-grid">
+    <div class="ticket-buy-block">
+      <h2>BUY NOW FOR...</h2>
+      <h3>$129 EARLY BIRD</h3>
+      <p>$159 AT THE DOOR</p>
+    </div>
+    <div class="location-block">
+      <p><strong>Brisbane:</strong> Dec 19th The Family, Fortitude Valley, starts 10pm</p>
+    </div>
+    <div class="location-block">
+      <p><strong>Sydney:</strong> Dec 20th S.A.S.H, CBD, starts 10pm</p>
+    </div>
+    <div class="location-block">
+      <p><strong>Melbourne:</strong> Dec 21st, New Guernica, CBD, starts 10pm</p>
+    </div>
+  </section>
+
+  <section class="artist-grid">
+    <div class="artist-item">
+      <img src="./images/artist-oscar-mulero.jpg" alt="Oscar Mulero">
+      <p>Oscar Mulero (Spain)</p>
+    </div>
+    <div class="artist-item">
+      <img src="./images/artist-robert-hood.jpg" alt="Robert Hood">
+      <p>Robert Hood (USA)</p>
+    </div>
+    <div class="artist-item">
+      <img src="./images/artist-surgeon.jpg" alt="Surgeon">
+      <p>Surgeon (UK)</p>
+    </div>
+    <div class="artist-item">
+      <img src="./images/artist-robag-wruhme.jpg" alt="Robag Wruhme">
+      <p>Robag Wruhme (Germany)</p>
+    </div>
+    <div class="artist-item">
+      <div class="placeholder-text">WHO WILL BE THERE?</div>
+    </div>
+    <div class="artist-item">
+      <img src="./images/artist-richie-hawtin.jpg" alt="Richie Hawtin">
+      <p>Richie Hawtin (Canada)</p>
+    </div>
+  </section>
+
+  <section class="genres-grid">
+    <div class="genre-item">
+      <img src="./images/genre1.jpg" alt="Deep House">
+      <p>Deep House</p>
+    </div>
+    <div class="genre-item">
+      <img src="./images/genre2.jpg" alt="Dark Electro">
+      <p>Dark Electro</p>
+    </div>
+    <div class="genre-item">
+      <img src="./images/genre3.jpg" alt="Tribal House">
+      <p>Tribal House</p>
+    </div>
+    <div class="genre-item">
+      <img src="./images/genre4.jpg" alt="Industrial">
+      <p>Industrial</p>
+    </div>
+  </section>
+
+  <section class="signup-section">
+    <h2>SIGN UP FOR EARLY BIRD TICKETS.</h2>
+    <div class="signup-form">
+      <input type="text" placeholder="FIRST NAME">
+      <input type="text" placeholder="LAST NAME">
+      <input type="email" placeholder="MAIL">
+    </div>
+    <button>SIGN UP</button>
+  </section>
+
+  <footer>
+    <img src="./images/fb.png" alt="Facebook">
+    <img src="./images/ig.png" alt="Instagram">
+    <img src="./images/spotify.png" alt="Spotify">
+    <img src="./images/search.png" alt="Search">
+  </footer>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("myLinks");
+    menu.classList.toggle("open");
+    console.log("Menu toggled. Current state:", menu.classList.contains("open") ? "OPEN" : "CLOSED");
+  }
+
+  // Optional: Close menu when a link is clicked
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll("#myLinks a");
+    links.forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("myLinks").classList.remove("open");
+        console.log("Menu closed via link click");
+      });
+    });
+  }); 
+</script>
+
+
+</body>
+</html>
