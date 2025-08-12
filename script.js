@@ -1,41 +1,38 @@
 // Toggle mobile menu
 function toggleMenu() {
-  const menu = document.getElementById("myLinks");
-  menu.classList.toggle("open");
-  console.log("Menu toggled. Current state:", menu.classList.contains("open") ? "OPEN" : "CLOSED");
+  document.getElementById("navLinks").classList.toggle("open");
 }
 
 // Close menu on link click
 document.addEventListener("DOMContentLoaded", () => {
-  const links = document.querySelectorAll("#myLinks a");
+  const links = document.querySelectorAll("#navLinks a");
   links.forEach(link => {
     link.addEventListener("click", () => {
-      document.getElementById("myLinks").classList.remove("open");
-      console.log("Menu closed via link click");
+      document.getElementById("navLinks").classList.remove("open");
     });
   });
 
-  // jQuery Marquee animation (only runs if .marquee exists)
+  // jQuery Marquee animation
   if ($(".marquee").length) {
+    var message = "Elektrik  Eel  Father's  Day  SALE  coming  on  the  20th  of  August  to  the 7  September";
+    var repeatedMessage = (" | " + message + "  ").repeat(20);
+    $(".marquee span").text(repeatedMessage);
+
     var $text = $(".marquee span");
     var containerWidth = $(".marquee").width();
     var textWidth = $text.width();
 
     function animateMarquee() {
-      $text.css({ left: -textWidth }) // start outside left
-           .animate({ left: containerWidth },
-              20000, // 20 seconds
-              "linear",
-              animateMarquee // repeat
-           );
+      $text.css({ left: -textWidth })
+           .animate({ left: containerWidth }, 200000, "linear", animateMarquee);
     }
 
     animateMarquee();
 
-    // Update widths on resize
     $(window).resize(function () {
       containerWidth = $(".marquee").width();
       textWidth = $text.width();
     });
   }
+  
 });
